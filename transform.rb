@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 class Transform
   attr_reader :values
 

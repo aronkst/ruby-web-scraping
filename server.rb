@@ -2,6 +2,7 @@ require 'sinatra'
 require_relative 'html'
 require_relative 'where'
 require_relative 'transform'
+require_relative 'convert'
 
 set :port, 3000
 
@@ -18,9 +19,10 @@ post '/find' do
   html = HTML.new(payload["url"], payload["javascript"])
   find = Where.new(payload["find"], html.value)
   transform = Transform.new(payload["find"], find.values)
+  convert = Convert.new(payload["find"], transform.values)
 
   content_type :json
-  transform.values.to_json
+  convert.values.to_json
 end
 
 private

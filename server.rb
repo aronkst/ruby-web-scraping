@@ -1,6 +1,6 @@
 require 'sinatra'
 require_relative 'html'
-require_relative 'find'
+require_relative 'where'
 
 set :port, 3000
 
@@ -15,7 +15,7 @@ end
 post '/find' do
   payload = get_payload
   html = HTML.new(payload["url"], payload["javascript"])
-  find = Find.new(payload["find"], html.value)
+  find = Where.new(payload["find"], html.value)
 
   content_type :json
   find.values.to_json

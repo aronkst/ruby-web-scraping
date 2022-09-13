@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-class Find
+class Where
   attr_reader :values
 
   def initialize(find, html)

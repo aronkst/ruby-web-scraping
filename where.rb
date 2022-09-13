@@ -6,19 +6,20 @@ class Where
   def initialize(find, html)
     @find = find
     @html = html
+
     @values = {}
 
-    load_site
-    find_values
+    load_document
+    where_values
   end
 
   private
 
-  def load_site
+  def load_document
     @document = Nokogiri::HTML(@html)
   end
 
-  def find_values
+  def where_values
     @find.keys.each do |key|
       if is_list?(key)
         @values[key] = find_list(key)
@@ -32,11 +33,11 @@ class Where
     !@find[key]["find"].nil?
   end
 
-  def find_value(document, where, value)
-    if value.nil?
+  def find_value(document, where, attr)
+    if attr.nil?
       document.at(where).content
     else
-      document.at(where).attr(value)
+      document.at(where).attr(attr)
     end
   rescue
     nil
@@ -49,12 +50,12 @@ class Where
   def find_list(key)
     list_values = []
 
-    @document.search(@find[key]["where"]).each do |doc_child|
+    @document.search(@find[key]["where"]).each do |document_child|
       list_values_child = {}
 
       @find[key]["find"].keys.each do |key_child|
-        value_child = @find[key]["find"][key_child]
-        list_values_child[key_child] = find_value(doc_child, value_child["where"], value_child["attr"])
+        find_child = @find[key]["find"][key_child]
+        list_values_child[key_child] = find_value(document_child, find_child["where"], find_child["attr"])
       end
 
       list_values.push(list_values_child)

@@ -6,12 +6,13 @@ class HTML
   def initialize(url, javascript)
     @url = url
     @javascript = javascript
-    @value = nil
 
     load_site
   end
 
   def load_site
     @value = URI.open(@url)
+  rescue
+    @value = nil
   end
 end

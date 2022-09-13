@@ -6,7 +6,10 @@ set :port, 3000
 
 post '/html' do
   payload = get_payload
-  HTML.new(payload["url"]).value
+  html = HTML.new(payload["url"])
+
+  content_type :text
+  html.value
 end
 
 post '/find' do
@@ -14,7 +17,8 @@ post '/find' do
   html = HTML.new(payload["url"])
   find = Find.new(payload["find"], html.value)
 
-  find.values
+  content_type :json
+  find.values.to_json
 end
 
 private

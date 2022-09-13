@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class Find
   attr_reader :values
 
@@ -12,7 +14,7 @@ class Find
 
   private
 
-  def load_site(query)
+  def load_site
     @document = Nokogiri::HTML(@html)
   end
 

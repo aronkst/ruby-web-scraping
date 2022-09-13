@@ -1,0 +1,45 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
+    cliver (0.3.2)
+    concurrent-ruby (1.1.10)
+    ferrum (0.11)
+      addressable (~> 2.5)
+      cliver (~> 0.3)
+      concurrent-ruby (~> 1.1)
+      websocket-driver (>= 0.6, < 0.8)
+    mustermann (2.0.2)
+      ruby2_keywords (~> 0.0.1)
+    nokogiri (1.13.8-x86_64-linux)
+      racc (~> 1.4)
+    public_suffix (5.0.0)
+    racc (1.6.0)
+    rack (2.2.4)
+    rack-protection (2.2.2)
+      rack
+    ruby2_keywords (0.0.5)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.2)
+      tilt (~> 2.0)
+    tilt (2.0.11)
+    websocket-driver (0.7.5)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.5)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  ferrum
+  nokogiri
+  sinatra
+
+RUBY VERSION
+   ruby 3.1.0p0
+
+BUNDLED WITH
+   2.3.3

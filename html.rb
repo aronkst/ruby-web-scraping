@@ -4,11 +4,15 @@ require_relative 'browser'
 class HTML
   attr_reader :value
 
-  def initialize(url, javascript)
-    @url = url
-    @javascript = javascript
-
-    load_site
+  def initialize(html)
+    if html.is_a?(String)
+      @value = html
+    else
+      @url = html["url"]
+      @javascript = html["javascript"]
+      
+      load_site
+    end
   end
 
   def load_site

@@ -9,7 +9,7 @@ set :port, 3000
 
 post '/html' do
   payload = get_payload
-  html = HTML.new(payload["html"]["url"], payload["html"]["javascript"])
+  html = HTML.new(payload["html"])
 
   content_type :text
   html.value
@@ -17,7 +17,7 @@ end
 
 post '/find' do
   payload = get_payload
-  html = HTML.new(payload["html"]["url"], payload["html"]["javascript"])
+  html = HTML.new(payload["html"])
   find = Where.new(payload["find"], html.value)
   transform = Transform.new(payload["find"], find.values)
   convert = Convert.new(payload["find"], transform.values)

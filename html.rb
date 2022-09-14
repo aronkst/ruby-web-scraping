@@ -15,7 +15,7 @@ class HTML
     if @javascript
       @value = Browser.new(@url).value
     else
-      @value = URI.open(@url)
+      @value = URI.parse(@url).open
     end
   rescue
     @value = nil

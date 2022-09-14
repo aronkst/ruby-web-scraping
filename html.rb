@@ -1,4 +1,5 @@
 require 'open-uri'
+require_relative 'browser'
 
 class HTML
   attr_reader :value
@@ -11,7 +12,11 @@ class HTML
   end
 
   def load_site
-    @value = URI.open(@url)
+    if @javascript
+      @value = Browser.new(@url).value
+    else
+      @value = URI.open(@url)
+    end
   rescue
     @value = nil
   end

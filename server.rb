@@ -3,6 +3,7 @@ require_relative 'html'
 require_relative 'where'
 require_relative 'transform'
 require_relative 'convert'
+require_relative 'exclude'
 
 set :port, 3000
 
@@ -20,9 +21,10 @@ post '/find' do
   find = Where.new(payload["find"], html.value)
   transform = Transform.new(payload["find"], find.values)
   convert = Convert.new(payload["find"], transform.values)
+  exclude = Exclude.new(payload["find"], convert.values)
 
   content_type :json
-  convert.values.to_json
+  exclude.values.to_json
 end
 
 private

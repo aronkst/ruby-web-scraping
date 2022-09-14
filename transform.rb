@@ -31,7 +31,7 @@ class Transform
 
     value
   rescue
-    value = nil
+    nil
   end
 
   def transform_value(value, transform)

@@ -25,7 +25,9 @@ class Exclude
   end
 
   def exclude_loop(value, exclude)
-    exclude.each do |e|
+    return false if exclude["exclude"].nil?
+
+    exclude["exclude"].each do |e|
       return true if exclude_value(value, e)
     end
 
@@ -36,6 +38,8 @@ class Exclude
 
   def exclude_value(value, exclude)
     case exclude[0]
+    when "null"
+      value.nil?
     when "=="
       value == exclude[1]
     when "!="
@@ -49,7 +53,7 @@ class Exclude
     when "<="
       value <= exclude[1]
     when "like"
-      value.include?(exclude[1])
+      value.downcase.include?(exclude[1].downcase)
     when "not"
       !exclude_value(value, exclude[1..-1])
     else
@@ -58,15 +62,20 @@ class Exclude
   end
 
   def exclude_one(key)
-    return if @find[key]["exclude"].nil?
-    @values.delete(key) if exclude_loop(@values[key], @find[key]["exclude"])
+    @values.delete(key) if exclude_loop(@values[key], @find[key])
   end
 
   def exclude_many(key)
     @find[key]["find"].each do |find_child_key, find_child_value|
+      list_exclude = []
       @values[key].each_with_index do |values_child, index|
-        next if find_child_value["exclude"].nil?
-        @values[key][index].delete(find_child_key) if exclude_loop(values_child[find_child_key], find_child_value["exclude"])
+        if exclude_loop(values_child[find_child_key], find_child_value)
+          list_exclude.append(index)
+          next
+        end
+      end
+      list_exclude.reverse.each do |index|
+        @values[key].delete_at(index)
       end
     end
   end

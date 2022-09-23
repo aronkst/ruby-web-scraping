@@ -8,7 +8,7 @@ require_relative 'exclude'
 set :port, 3000
 
 post '/html' do
-  payload = get_payload
+  payload = body_json
   html = HTML.new(payload['html'])
 
   content_type :text
@@ -16,7 +16,7 @@ post '/html' do
 end
 
 post '/find' do
-  payload = get_payload
+  payload = body_json
   html = HTML.new(payload['html'])
   find = Where.new(payload['find'], html.value)
   transform = Transform.new(payload['find'], find.values)
@@ -29,7 +29,7 @@ end
 
 private
 
-def get_payload
+def body_json
   request.body.rewind
   JSON.parse request.body.read
 end

@@ -12,7 +12,7 @@ class Transform
 
   def transform_values
     @find.each_key do |key|
-      if is_array?(key)
+      if array?(key)
         transform_many(key)
       else
         transform_one(key)
@@ -20,7 +20,7 @@ class Transform
     end
   end
 
-  def is_array?(key)
+  def array?(key)
     !@find[key]['find'].nil?
   end
 

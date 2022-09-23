@@ -12,7 +12,7 @@ class Convert
 
   def convert_values
     @find.each_key do |key|
-      if is_array?(key)
+      if array?(key)
         convert_many(key)
       else
         convert_one(key)
@@ -20,7 +20,7 @@ class Convert
     end
   end
 
-  def is_array?(key)
+  def array?(key)
     !@find[key]['find'].nil?
   end
 

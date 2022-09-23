@@ -21,7 +21,7 @@ class Where
 
   def where_values
     @find.each_key do |key|
-      @values[key] = if is_list?(key)
+      @values[key] = if list?(key)
                        find_list(key)
                      else
                        find_one(key)
@@ -29,7 +29,7 @@ class Where
     end
   end
 
-  def is_list?(key)
+  def list?(key)
     !@find[key]['find'].nil?
   end
 

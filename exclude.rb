@@ -12,7 +12,7 @@ class Exclude
 
   def exclude_values
     @find.each_key do |key|
-      if is_array?(key)
+      if array?(key)
         exclude_many(key)
       else
         exclude_one(key)
@@ -20,7 +20,7 @@ class Exclude
     end
   end
 
-  def is_array?(key)
+  def array?(key)
     !@find[key]['find'].nil?
   end
 

@@ -11,7 +11,7 @@ class Transform
   private
 
   def transform_values
-    @find.keys.each do |key|
+    @find.each_key do |key|
       if is_array?(key)
         transform_many(key)
       else
@@ -21,7 +21,7 @@ class Transform
   end
 
   def is_array?(key)
-    !@find[key]["find"].nil?
+    !@find[key]['find'].nil?
   end
 
   def transform_loop(value, transform)
@@ -36,29 +36,30 @@ class Transform
 
   def transform_value(value, transform)
     case transform[0]
-    when "split"
+    when 'split'
       value.split(transform[1])[transform[2]]
-    when "replace"
+    when 'replace'
       value.gsub(transform[1], transform[2])
-    when "prepend"
+    when 'prepend'
       transform[1] + value
-    when "append"
+    when 'append'
       value + transform[1]
-    else
-      nil
     end
   end
 
   def transform_one(key)
-    return if @find[key]["transform"].nil? || @values[key].nil?
-    @values[key] = transform_loop(@values[key], @find[key]["transform"])
+    return if @find[key]['transform'].nil? || @values[key].nil?
+
+    @values[key] = transform_loop(@values[key], @find[key]['transform'])
   end
 
   def transform_many(key)
-    @find[key]["find"].each do |find_child_key, find_child_value|
+    @find[key]['find'].each do |find_child_key, find_child_value|
       @values[key].each_with_index do |values_child, index|
-        next if find_child_value["transform"].nil? || values_child[find_child_key].nil?
-        @values[key][index][find_child_key] = transform_loop(values_child[find_child_key], find_child_value["transform"])
+        next if find_child_value['transform'].nil? || values_child[find_child_key].nil?
+
+        @values[key][index][find_child_key] =
+          transform_loop(values_child[find_child_key], find_child_value['transform'])
       end
     end
   end

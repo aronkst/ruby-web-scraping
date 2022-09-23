@@ -8,19 +8,19 @@ class HTML
     if html.is_a?(String)
       @value = html
     else
-      @url = html["url"]
-      @javascript = html["javascript"]
-      
+      @url = html['url']
+      @javascript = html['javascript']
+
       load_site
     end
   end
 
   def load_site
-    if @javascript
-      @value = Browser.new(@url).value
-    else
-      @value = URI.parse(@url).open
-    end
+    @value = if @javascript
+               Browser.new(@url).value
+             else
+               URI.parse(@url).open
+             end
   rescue
     @value = nil
   end

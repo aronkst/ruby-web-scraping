@@ -20,17 +20,17 @@ class Where
   end
 
   def where_values
-    @find.keys.each do |key|
-      if is_list?(key)
-        @values[key] = find_list(key)
-      else
-        @values[key] = find_one(key)
-      end
+    @find.each_key do |key|
+      @values[key] = if is_list?(key)
+                       find_list(key)
+                     else
+                       find_one(key)
+                     end
     end
   end
 
   def is_list?(key)
-    !@find[key]["find"].nil?
+    !@find[key]['find'].nil?
   end
 
   def find_value(document, where, attr)
@@ -44,18 +44,18 @@ class Where
   end
 
   def find_one(key)
-    find_value(@document, @find[key]["where"], @find[key]["attr"])
+    find_value(@document, @find[key]['where'], @find[key]['attr'])
   end
 
   def find_list(key)
     list_values = []
 
-    @document.search(@find[key]["where"]).each do |document_child|
+    @document.search(@find[key]['where']).each do |document_child|
       list_values_child = {}
 
-      @find[key]["find"].keys.each do |key_child|
-        find_child = @find[key]["find"][key_child]
-        list_values_child[key_child] = find_value(document_child, find_child["where"], find_child["attr"])
+      @find[key]['find'].each_key do |key_child|
+        find_child = @find[key]['find'][key_child]
+        list_values_child[key_child] = find_value(document_child, find_child['where'], find_child['attr'])
       end
 
       list_values.push(list_values_child)

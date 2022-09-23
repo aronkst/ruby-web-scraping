@@ -11,7 +11,7 @@ class Exclude
   private
 
   def exclude_values
-    @find.keys.each do |key|
+    @find.each_key do |key|
       if is_array?(key)
         exclude_many(key)
       else
@@ -21,13 +21,13 @@ class Exclude
   end
 
   def is_array?(key)
-    !@find[key]["find"].nil?
+    !@find[key]['find'].nil?
   end
 
   def exclude_loop(value, exclude)
-    return false if exclude["exclude"].nil?
+    return false if exclude['exclude'].nil?
 
-    exclude["exclude"].each do |e|
+    exclude['exclude'].each do |e|
       return true if exclude_value(value, e)
     end
 
@@ -38,24 +38,24 @@ class Exclude
 
   def exclude_value(value, exclude)
     case exclude[0]
-    when "null"
+    when 'null'
       value.nil?
-    when "=="
+    when '=='
       value == exclude[1]
-    when "!="
+    when '!='
       value != exclude[1]
-    when ">"
+    when '>'
       value > exclude[1]
-    when ">="
+    when '>='
       value >= exclude[1]
-    when "<"
+    when '<'
       value < exclude[1]
-    when "<="
+    when '<='
       value <= exclude[1]
-    when "like"
+    when 'like'
       value.downcase.include?(exclude[1].downcase)
-    when "not"
-      !exclude_value(value, exclude[1..-1])
+    when 'not'
+      !exclude_value(value, exclude[1..])
     else
       false
     end
@@ -66,7 +66,7 @@ class Exclude
   end
 
   def exclude_many(key)
-    @find[key]["find"].each do |find_child_key, find_child_value|
+    @find[key]['find'].each do |find_child_key, find_child_value|
       list_exclude = []
       @values[key].each_with_index do |values_child, index|
         if exclude_loop(values_child[find_child_key], find_child_value)

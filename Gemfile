@@ -6,3 +6,4 @@ gem 'sinatra'
 gem 'puma', '~> 5.0'
 gem 'ferrum'
 gem 'nokogiri'
+gem 'rubocop', require: false

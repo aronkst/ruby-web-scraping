@@ -1,0 +1,10 @@
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/HashSyntax:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false

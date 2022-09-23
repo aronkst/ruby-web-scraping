@@ -7,6 +7,8 @@ class Browser
     @url = url
 
     load_browser
+
+    @browser.quit
   end
 
   def load_browser

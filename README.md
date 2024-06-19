@@ -1,14 +1,14 @@
 # Ruby Web Scraping
 
-This is a web scraping developed using the Ruby programming language that has the possibility to fetch information from websites rendered via JavaScript.
+This open-source project, developed in Ruby, is a versatile web scraping tool capable of fetching information from websites rendered with JavaScript.
 
-Its execution is done using Docker, where Chromium it's installed inside the container, which can be used to render the page, or not, and use the traditional way that takes the HTML of the page with a simple request.
+The tool utilizes Docker to streamline its execution, with Chromium installed inside the container. This allows the tool to render JavaScript-heavy pages for accurate data extraction. Alternatively, it can perform traditional web scraping by directly fetching HTML content via simple HTTP requests.
 
-Searching for site information can be passed easily via `body`, in a POST request.
+Data extraction is flexible and user-friendly. You can pass the desired parameters in the body of a POST request to retrieve specific information from a site. Additionally, the tool provides an endpoint to return the entire HTML content of a webpage, enabling comprehensive data analysis.
 
-There is also a way to return all the HTML from a page by making a request to a specific path.
+To simplify usage, the project includes a Makefile with all necessary commands for execution. The Makefile also contains detailed instructions and examples, including `curl` commands for testing and demonstration purposes.
 
-To know more details, there is the Makefile file with the commands necessary for its execution and example of how to use, including `curl` commands.
+For more detailed instructions and examples, please refer to the Makefile in the project repository.
 
 # JavaScript Render
 
